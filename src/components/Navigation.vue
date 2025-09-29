@@ -53,11 +53,11 @@ const blogNameChars = blogName.split("");
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.2s;
 }
 
 .logo-container:hover img {
-  box-shadow: 0 0 10px 1.5px #e294aad3;
+  box-shadow: 0 0 10px 1px #e294aad3;
 }
 
 .blog-name-container {
