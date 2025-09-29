@@ -36,7 +36,7 @@ const blogNameChars = blogName.split("");
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 5px 20px;
 }
 
 .logo-container {
@@ -53,7 +53,7 @@ const blogNameChars = blogName.split("");
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
-  transition: box-shadow 0.2s;
+  transition: box-shadow 0.4s;
 }
 
 .logo-container:hover img {
@@ -67,11 +67,11 @@ const blogNameChars = blogName.split("");
 
 .logo-container .char {
   display: inline-block;
-  color: #333;
+  color: #eeeded;
   font-size: 1.2rem;
   font-weight: bold;
   font-family: "Aurora", serif;
-  transition: color 0.4;
+  transition: color 1s;
 }
 
 .logo-container:hover .char {

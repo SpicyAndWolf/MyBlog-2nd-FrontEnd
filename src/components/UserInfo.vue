@@ -1,19 +1,24 @@
 <script setup>
-import rainGif from "@/assets/rain.jfif";
-import avatar from "@/assets/avatar.JPG";
+import UserInfoDescription from "./UserInfoDescription.vue";
+import avatar from "@/assets/avatar-01.JPG";
 </script>
 
 <template>
   <section class="user-info">
-    <div class="rain-gif">
-      <img :src="rainGif" />
+    <div class="user-info__base">
+      <img class="user-info__avatar" :src="avatar" />
+      <h2 class="user-info__name">香辛料</h2>
     </div>
-    <div class="avatar">
-      <img :src="avatar" />
-    </div>
-    <nav class="contact-links">
-      <a href="/">bilibili</a>
-      <a href="/">bangumi</a>
+    <UserInfoDescription></UserInfoDescription>
+    <nav class="user-info_contact-links">
+      <a href="https://bangumi.tv/user/spicy">
+        <img src="@/assets/images/bilibili-01.svg" alt="哔哩哔哩" />
+        <span>bilibili</span>
+      </a>
+      <a href="https://space.bilibili.com/102657225">
+        <img src="@/assets/images/bangumi-01.svg" alt="Bangumi" />
+        <span>Bangumi</span>
+      </a>
     </nav>
   </section>
 </template>
@@ -21,31 +26,103 @@ import avatar from "@/assets/avatar.JPG";
 <style scoped>
 .user-info {
   display: flex;
-  width: 300px;
-  min-width: 200px;
   flex-direction: column;
   justify-content: center;
+  gap: 10px;
+
+  margin-right: 50px;
+  margin-bottom: 40px;
+}
+
+.user-info__base {
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 
-.rain-gif {
-  width: 80%;
-}
-
-.rain-gif img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.avatar {
-  width: 80%;
-}
-
-.avatar img {
-  width: 100%;
+.user-info__avatar {
+  width: 150px;
   aspect-ratio: 1;
   object-fit: cover;
   border-radius: 50%;
+
+  transition: box-shadow 0.4s;
+}
+
+.user-info__avatar:hover {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.user-info__name {
+  width: 120px;
+  margin: 0;
+  margin-left: 40px;
+  text-align: center;
+
+  font-size: 40px;
+  color: rgba(56, 56, 56, 0.692);
+  transition: color 0.3s ease;
+}
+
+.user-info__name:hover {
+  color: rgb(255, 255, 255);
+}
+
+.user-info_contact-links {
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+
+  padding: 8px;
+  padding-left: 12px;
+  background-color: #8686868c;
+  border-radius: 15px;
+  transition: background-color 0.4s ease;
+}
+
+.user-info_contact-links:hover {
+  background-color: #5353538c;
+}
+
+.user-info_contact-links a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2px;
+
+  text-decoration: none;
+  color: rgb(221, 221, 221);
+  transition: transform 0.3s ease;
+}
+
+.user-info_contact-links img {
+  width: 24px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.user-info_contact-links a:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .user-info {
+    margin-right: 0;
+    margin-bottom: 30px;
+    align-items: center;
+  }
+  .user-info__base {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .user-info__avatar {
+    width: 120px;
+  }
+  .user-info__name {
+    margin-left: 0;
+    font-size: 32px;
+  }
 }
 </style>

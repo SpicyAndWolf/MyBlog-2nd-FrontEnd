@@ -5,6 +5,8 @@ import UserInfo from "./components/UserInfo.vue";
 import RecentArticles from "./components/RecentArticles.vue";
 
 import img1 from "@/assets/images/articleThumb/1.png";
+import img2 from "@/assets/images/articleThumb/2.jfif";
+
 const articlesData = ref([
   {
     link: "/article1",
@@ -17,7 +19,7 @@ const articlesData = ref([
   },
   {
     link: "/article2",
-    imgUrl: "2",
+    imgUrl: img2,
     title: "文章2",
     tag: "tag2",
     datetime: "2025-09-28",
@@ -41,6 +43,12 @@ const articlesData = ref([
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
+  background-image: url("@/assets/images/background-03.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .main-content {
@@ -50,5 +58,13 @@ const articlesData = ref([
   align-items: center;
   justify-content: space-around;
   padding: 0 20px;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 40px;
+  }
 }
 </style>
