@@ -13,6 +13,9 @@ const routes = [
     path: "/article/:id",
     name: "Article",
     component: Article,
+    meta: {
+      layoutClass: "article",
+    },
   },
   {
     path: "/articles",

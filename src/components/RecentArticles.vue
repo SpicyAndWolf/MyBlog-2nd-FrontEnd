@@ -28,6 +28,7 @@ defineProps({
   width: 100%;
   background-color: #9e9e9e8c;
   padding: 10px;
+  backdrop-filter: blur(2px);
 
   box-sizing: border-box;
   border-radius: 15px;

@@ -2,6 +2,14 @@
 import myLogo from "@/assets/logo.jpg";
 import { ref, onMounted } from "vue";
 
+// 定义导航栏是否透明
+defineProps({
+  layoutClass: {
+    type: String,
+    default: null,
+  },
+});
+
 // 博客名称
 const blogName = "SPICE-NEST";
 const blogNameChars = blogName.split("");
@@ -14,7 +22,7 @@ function toggleMenu() {
 </script>
 
 <template>
-  <nav class="navigation">
+  <nav class="navigation" :class="layoutClass">
     <router-link to="/" class="logo-container">
       <img :src="myLogo" alt="SpiceNest Logo" />
       <div class="blog-name-container">
@@ -25,7 +33,9 @@ function toggleMenu() {
     </router-link>
 
     <ul class="navigation-links" :class="{ 'is-open': isMenuOpen }">
-      <li><router-link to="/articles" @click="isMenuOpen = false">文章</router-link></li>
+      <li>
+        <router-link to="/articles" @click="isMenuOpen = false">文章</router-link>
+      </li>
     </ul>
 
     <button class="menu-toggle" @click="toggleMenu" aria-label="Toggle navigation">
@@ -49,6 +59,16 @@ function toggleMenu() {
   align-items: center;
   justify-content: space-between;
   padding: 5px 20px;
+
+  transition: background-color 0.3s ease;
+}
+
+.navigation.layout--article {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 
 .logo-container {
@@ -84,6 +104,10 @@ function toggleMenu() {
   font-weight: bold;
   font-family: "Aurora", serif;
   transition: color 1s;
+}
+
+.navigation.layout--article .char {
+  color: #252525;
 }
 
 .logo-container:hover .char {
@@ -144,23 +168,41 @@ function toggleMenu() {
 .navigation-links {
   display: flex;
   flex-direction: row;
-  flex: 1;
   justify-content: center;
   gap: 30px;
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-right: 20px;
 }
 
 .navigation-links a {
+  display: block;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  border: solid 2px #adadadcc;
+  text-align: center;
+
   text-decoration: none;
-  color: #555;
+  color: white;
   font-weight: 500;
   font-size: 18px;
-  transition: color 0.3s;
+  transition: color 0.3s, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  border-radius: 15px;
+}
+
+.navigation.layout--article .navigation-links a {
+  color: #252525;
 }
 
 .navigation-links a:hover {
+  background-color: #ffffffb4;
+  color: #c44569;
+  border-color: transparent;
+}
+
+.navigation.layout--article .navigation-links a:hover {
   color: #c44569;
 }
 
@@ -182,6 +224,7 @@ function toggleMenu() {
   .navigation-links {
     /* 变为一个从顶部滑下的全屏菜单 */
     position: fixed;
+    margin: 0;
     top: 0;
     left: 0;
     width: 100%;
@@ -208,8 +251,24 @@ function toggleMenu() {
     background-color: rgba(20, 20, 20, 0.95);
   }
 
+  .navigation-links li {
+    width: 100%;
+  }
+
   /* 移动端菜单里的链接样式 */
   .navigation-links a {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+
+    border-radius: 0;
+    color: #eeeded;
+    font-size: 2rem;
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .navigation.layout--article .navigation-links a {
     color: #eeeded;
     font-size: 2rem;
   }
