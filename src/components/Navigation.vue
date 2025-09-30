@@ -193,7 +193,7 @@ function toggleMenu() {
 }
 
 .navigation.layout--article .navigation-links a {
-  color: #252525;
+  color: #535353;
 }
 
 .navigation-links a:hover {

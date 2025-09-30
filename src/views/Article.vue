@@ -1,20 +1,35 @@
 <script setup></script>
 
 <template>
-  <div class="article-container">
-    <div class="article-header">
-      <h2 class="article__title">松鼠的世界</h2>
+  <article class="article-container">
+    <header class="article-header">
+      <h1 class="article__title">松鼠的世界</h1>
+      <div class="article__meta">
+        <div class="article__tags">
+          <router-link class="tag">科技</router-link>
+          <span> / </span>
+          <router-link class="tag">Vue</router-link>
+        </div>
+        <time>2025-9-29</time>
+      </div>
+    </header>
+    <div class="article__content">
+      <p>在秋日的午后，当金黄的落叶如雨般飘零，我常常驻足于公园的林荫道下，凝视着那些敏捷的身影。</p>
+      <p>
+        松鼠，属于啮齿目松鼠科，全球约有285种，已知物种遍布各大洲。 回溯历史，松鼠的祖先可追溯到约5000万年前的始新世。
+      </p>
+      <p>松鼠的生活习性，充满了智慧与策略。最著名的莫过于它们的储藏行为。</p>
+      <p>在饮食上，松鼠是杂食性动物，以坚果、种子为主，但也摄取昆虫、鸟蛋和树皮。</p>
+      <p>不同种类的松鼠，各有其独特的生活方式。譬如飞鼠，并非真正飞行，而是通过皮膜滑翔。</p>
+      <p>繁殖是松鼠生命中的重要篇章。通常每年两次，一次在春季，一次在夏季。</p>
+      <blockquote>这是一个引用的段落，可能引用了某本书或某句话。</blockquote>
+      <ul>
+        <li>列表项一</li>
+        <li>列表项二</li>
+      </ul>
+      <p>最后一个段落...</p>
     </div>
-    <p class="article=content">
-      在秋日的午后，当金黄的落叶如雨般飘零，我常常驻足于公园的林荫道下，凝视着那些敏捷的身影。它们是松鼠，小小的精灵，在枝头跳跃，仿佛是大自然的舞者。松鼠，这个看似平凡的动物，却承载着无数的谜团与魅力。从远古的森林到现代的城市，它们以一种顽强的适应力，编织出属于自己的传奇。今日，我想借这篇散文，带你走进松鼠的世界，探寻它们的习性、情感、与人类的交织，以及那隐藏在毛茸茸外表下的智慧与生存之道。这不仅仅是一篇关于动物的描述，更是对生命韧性的颂歌，一场心灵的漫游。
-      <br />松鼠，属于啮齿目松鼠科，全球约有285种，已知物种遍布各大洲，除南极洲和澳大利亚外，几乎无处不在。它们的身形小巧，通常体长20至30厘米，尾巴蓬松如旗帜，体重从几十克到一公斤不等。毛色多样，从灰色、棕色到红色，甚至黑色变异体，都在不同的环境中演化出独特的伪装。譬如北美灰松鼠，那灰色的皮毛在树干上几乎与树皮融为一体，而红松鼠则以其鲜艳的赤褐色，在针叶林中如火焰般跳动。这些外在的差异，不仅是进化之作，更是适应生存的艺术。
-      <br />回溯历史，松鼠的祖先可追溯到约5000万年前的始新世。那时，它们从原始的啮齿类动物中分化而出，逐渐发展出强大的后肢和敏锐的爪子，用于攀爬和跳跃。化石记录显示，早期的松鼠已具备了现代同类的许多特征，如大眼睛和灵敏的听觉。这些进化优势，让它们在森林中如鱼得水。想象一下，在古老的森林中，一只松鼠从高枝上跃下，抓住一颗坚果，那一刻，它不仅是猎食者，更是自然的建筑师。它们筑巢于树洞或枝叶间，用树皮、苔藓和毛发编织成温暖的堡垒，抵御严寒。
-      <br />松鼠的生活习性，充满了智慧与策略。最著名的莫过于它们的储藏行为。秋季来临，它们会疯狂采集坚果、种子和蘑菇，将之埋藏在土壤中，作为冬天的储备。这种行为并非随意，而是经过精密的计算。研究显示，松鼠能记住上千个藏宝点的位置，利用空间记忆和嗅觉来定位。更有趣的是，它们会“假埋”食物，即在其他动物注视下，故意挖坑却不放入食物，以迷惑竞争者。这种狡黠，让人不禁联想到人类的谋略。北美灰松鼠便是此中高手，它们每年可埋藏数千颗橡子，却仅找回约26%，其余的种子则发芽成树，间接促进了森林的再生。松鼠不仅是消费者，更是生态系统的工程师。
-      <br />在饮食上，松鼠是杂食性动物，以坚果、种子为主，但也摄取昆虫、鸟蛋和树皮。它们的牙齿永不停止生长，必须通过啃咬来磨损，这也是为什么它们常被视为“啃树高手”。在城市环境中，松鼠学会了适应人类食物，如面包屑或花生，甚至偷吃鸟食器里的种子。这种适应力，令人惊叹。记得一次在伦敦的海德公园，我目睹一只灰松鼠从游客手中讨要食物，它那双黑亮的眼睛，闪烁着好奇与机警，仿佛在说：“人类，你们是我的新邻居。”
-      <br />不同种类的松鼠，各有其独特的生活方式。譬如飞鼠，并非真正飞行，而是通过皮膜滑翔，从树上滑行数十米，宛如夜空的流星。它们多活跃于夜间，避开捕食者。另一种是地松鼠，如加州地松鼠，它们挖掘地下隧道，形成复杂的社区，类似于蚁群的社会结构。隧道可深达数米，分室而居，有储藏室、育儿室和逃生通道。这种社会性，让地松鼠在面对蛇类或猛禽时，能通过哨声警报，集体防御。相比之下，树栖松鼠更偏向独居，仅在繁殖季短暂相聚。
-      <br />繁殖是松鼠生命中的重要篇章。通常每年两次，一次在春季，一次在夏季。雌松鼠妊娠期约一个月，生下2至8只幼鼠。幼鼠出生时盲聋无毛，完全依赖母亲。母亲会用尾巴包裹它们，提供温暖，并在树巢中守护。父亲角色则较为淡薄，多为独行侠。这段育儿期，体现了松鼠的母性光辉。幼鼠长到两个月时，开始学习攀爬和觅食，母亲会示范如何剥开坚果壳，或如何从枝头跳跃。那场景，如同人类父母教导孩子，充满了温情与耐心。
-    </p>
-  </div>
+  </article>
 </template>
 
 <style scoped>
@@ -55,5 +70,138 @@
   background-color: transparent;
   color: aliceblue;
   font-size: 4rem;
+  z-index: 1;
+}
+
+.article__meta {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.article__meta time {
+  display: block;
+  padding: 8px;
+
+  background-color: #6e6e6e36;
+  border-radius: 15px;
+  color: #6e6e6e;
+  font-size: 12px;
+  cursor: default;
+
+  transition: color 0.2s ease-in-out;
+}
+
+.article__meta time:hover {
+  color: #070707;
+}
+
+.article__tags {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+
+  background-color: #6e6e6e36;
+  border-radius: 15px;
+}
+
+.article__tags span {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: #6e6e6e;
+  cursor: default;
+}
+
+.article__tags .tag {
+  text-decoration: none;
+  color: #6e6e6e;
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: color 0.2s ease-in-out;
+}
+
+.article__tags .tag:hover {
+  text-decoration: underline;
+  color: #070707;
+}
+
+.article__content {
+  max-width: 800px;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  color: #333333;
+  font-size: 17px;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "WenQuanYi Micro Hei";
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.article__content p {
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  text-align: justify;
+}
+
+.article__content p:last-child {
+  margin-bottom: 0;
+}
+
+.article__content h2,
+.article__content h3,
+.article__content h4 {
+  color: #222;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  line-height: 1.4;
+}
+
+.article__content h2 {
+  font-size: 1.8rem;
+}
+.article__content h3 {
+  font-size: 1.5rem;
+}
+.article__content h4 {
+  font-size: 1.2rem;
+}
+
+.article__content a {
+  color: #c44569;
+  text-decoration: none;
+  border-bottom: 1px solid #c4456955;
+  transition: border-bottom 0.3s ease;
+}
+
+.article__content a:hover {
+  border-bottom: 1px solid #c44569;
+}
+
+.article__content blockquote {
+  margin: 2em 0;
+  padding: 0.5em 1.5em;
+  border-left: 4px solid #c44569;
+  background-color: #f8f8f8;
+  color: #666;
+}
+
+.article__content ul,
+.article__content ol {
+  margin-bottom: 1.5em;
+  padding-left: 1.8em;
 }
 </style>

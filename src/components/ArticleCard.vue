@@ -19,7 +19,7 @@ defineProps({
       </h3>
       <p class="article-card__summary">{{ article.summary }}</p>
       <div class="article-card__meta">
-        <span class="tag">{{ article.tag }}</span>
+        <span class="tag">{{ article.topTag }}</span>
         <time :datetime="article.datetime">{{ article.datetime }}</time>
       </div>
     </div>
@@ -32,7 +32,6 @@ defineProps({
   flex-direction: row;
   gap: 20px;
   position: relative;
-  align-items: center;
   padding: 15px;
   padding-left: 10px;
   border-radius: 15px;
