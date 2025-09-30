@@ -12,10 +12,10 @@ defineProps({
     <img class="article-card__image" :src="article.imgUrl" alt="文章头图" />
     <div class="article-card__content">
       <h3 class="article-card__title">
-        <a :href="article.link">
+        <router-link :to="`/article/${article.id}`">
           {{ article.title }}
           <span class="stretched-link"></span>
-        </a>
+        </router-link>
       </h3>
       <p class="article-card__summary">{{ article.summary }}</p>
       <div class="article-card__meta">

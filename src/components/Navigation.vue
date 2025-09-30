@@ -15,17 +15,17 @@ function toggleMenu() {
 
 <template>
   <nav class="navigation">
-    <a href="/" class="logo-container">
+    <router-link to="/" class="logo-container">
       <img :src="myLogo" alt="SpiceNest Logo" />
       <div class="blog-name-container">
         <span v-for="(char, index) in blogNameChars" :key="index" class="char">
           {{ char }}
         </span>
       </div>
-    </a>
+    </router-link>
 
     <ul class="navigation-links" :class="{ 'is-open': isMenuOpen }">
-      <li><a href="/article" @click="isMenuOpen = false">文章</a></li>
+      <li><router-link to="/articles" @click="isMenuOpen = false">文章</router-link></li>
     </ul>
 
     <button class="menu-toggle" @click="toggleMenu" aria-label="Toggle navigation">
