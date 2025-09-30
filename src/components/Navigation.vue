@@ -1,9 +1,16 @@
 <script setup>
 import myLogo from "@/assets/logo.jpg";
+import { ref, onMounted } from "vue";
 
 // 博客名称
 const blogName = "SPICE-NEST";
 const blogNameChars = blogName.split("");
+
+// 菜单按钮
+const isMenuOpen = ref(false);
+function toggleMenu() {
+  isMenuOpen.value = !isMenuOpen.value;
+}
 </script>
 
 <template>
@@ -16,9 +23,14 @@ const blogNameChars = blogName.split("");
         </span>
       </div>
     </a>
-    <ul class="navigation-links">
-      <li><a href="/article">文章</a></li>
+
+    <ul class="navigation-links" :class="{ 'is-open': isMenuOpen }">
+      <li><a href="/article" @click="isMenuOpen = false">文章</a></li>
     </ul>
+
+    <button class="menu-toggle" @click="toggleMenu" aria-label="Toggle navigation">
+      <span class="hamburger"></span>
+    </button>
   </nav>
 </template>
 
@@ -78,6 +90,57 @@ const blogNameChars = blogName.split("");
   color: #c44569;
 }
 
+.menu-toggle {
+  display: none;
+  width: 40px;
+  height: 30px;
+  background: transparent;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 0;
+
+  border: solid rgba(230, 230, 230, 0.87) 2px;
+  padding: 5px;
+  border-radius: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-toggle:active {
+  background-color: pink;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  display: block;
+  background-color: #eeeded;
+  height: 3px;
+  width: 15px;
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger::before {
+  transform: translateY(-6px);
+}
+
+.hamburger::after {
+  transform: translateY(3px); /* (6px - 3px) */
+}
+
+.is-open + .menu-toggle .hamburger {
+  background-color: transparent;
+}
+
+.is-open + .menu-toggle .hamburger::before {
+  transform: rotate(45deg);
+}
+
+.is-open + .menu-toggle .hamburger::after {
+  transform: translateY(-3px) rotate(-45deg);
+}
+
 .navigation-links {
   display: flex;
   flex-direction: row;
@@ -99,5 +162,56 @@ const blogNameChars = blogName.split("");
 
 .navigation-links a:hover {
   color: #c44569;
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    padding: 5px 15px; /* 调整边距 */
+  }
+
+  /* 显示汉堡按钮 */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 隐藏桌面端的链接排布方式 */
+  .navigation-links {
+    /* 变为一个从顶部滑下的全屏菜单 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+
+    /* 默认隐藏在视口之外 */
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.4s ease-in-out, background-color 0.4s ease-in-out;
+
+    /* 内部链接垂直排列并居中 */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding-top: 50px; /* 留出导航栏高度 */
+
+    z-index: 1000;
+  }
+
+  /* 当菜单打开时，滑入视口 */
+  .navigation-links.is-open {
+    clip-path: inset(0 0 0% 0);
+    background-color: rgba(20, 20, 20, 0.95);
+  }
+
+  /* 移动端菜单里的链接样式 */
+  .navigation-links a {
+    color: #eeeded;
+    font-size: 2rem;
+  }
 }
 </style>
