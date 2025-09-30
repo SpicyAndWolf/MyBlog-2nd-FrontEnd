@@ -1,22 +1,37 @@
 <script setup>
-defineProps({
+import { useRouter } from "vue-router";
+const props = defineProps({
   article: {
     type: Object,
     required: true,
   },
 });
+
+// ArticleCard和Aricle联动逻辑——头图放大载入页面
+const router = useRouter();
+const transitionName = `article-image-${props.article.id}`;
+function navigate() {
+  if (!document.startViewTransition) {
+    router.push(`/article/${props.article.id}`);
+    return;
+  }
+
+  document.startViewTransition(() => {
+    router.push(`/article/${props.article.id}`);
+  });
+}
 </script>
 
 <template>
-  <article class="article-card">
-    <img class="article-card__image" :src="article.imgUrl" alt="文章头图" />
+  <article class="article-card" @click="navigate">
+    <img
+      class="article-card__image"
+      :src="article.imgUrl"
+      alt="文章头图"
+      :style="{ viewTransitionName: transitionName }"
+    />
     <div class="article-card__content">
-      <h3 class="article-card__title">
-        <router-link :to="`/article/${article.id}`">
-          {{ article.title }}
-          <span class="stretched-link"></span>
-        </router-link>
-      </h3>
+      <a class="article-card__title" @click.prevent :href="`/article/${article.id}`">{{ article.title }}</a>
       <p class="article-card__summary">{{ article.summary }}</p>
       <div class="article-card__meta">
         <span class="tag">{{ article.topTag }}</span>
@@ -36,6 +51,7 @@ defineProps({
   padding-left: 10px;
   border-radius: 15px;
   transition: box-shadow 0.3s, transform 0.3s ease;
+  cursor: pointer;
 }
 
 .article-card:hover {
@@ -64,9 +80,6 @@ defineProps({
   margin: 0;
   font-size: 1.2rem;
   font-weight: 600;
-}
-
-.article-card__title a {
   text-decoration: none;
   color: rgb(247, 247, 247);
   white-space: nowrap;
@@ -96,16 +109,6 @@ defineProps({
   font-size: 0.8rem;
   color: #d4d4d4;
   margin-top: auto;
-}
-
-.stretched-link::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
 }
 
 /* --- 把移动端适配 */

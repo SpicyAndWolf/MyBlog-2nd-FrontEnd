@@ -1,16 +1,42 @@
-<script setup></script>
+<script setup>
+import { useRoute } from "vue-router";
+import { computed } from "vue";
+
+// 模拟用数据
+const articleData = {
+  id: 1,
+  title: "松鼠的世界",
+  imageUrl: new URL("@/assets/images/articleThumb/2.jfif", import.meta.url).href,
+  topTag: "科技",
+  subTag: "Vue",
+  date: "2025-9-29",
+  articleContent: "",
+};
+
+// ArticleCard和Aricle联动逻辑——头图放大载入页面
+const route = useRoute();
+const articleId = route.params.id;
+const transitionName = `article-image-${articleId}`;
+</script>
 
 <template>
   <article class="article-container">
     <header class="article-header">
-      <h1 class="article__title">松鼠的世界</h1>
+      <img
+        :src="articleData.imageUrl"
+        alt="文章头图"
+        class="article-header__image"
+        :style="{ viewTransitionName: transitionName }"
+        @load="$event.target.parentElement.classList.add('loaded')"
+      />
+      <h1 class="article__title">{{ articleData.title }}</h1>
       <div class="article__meta">
         <div class="article__tags">
-          <router-link class="tag">科技</router-link>
+          <router-link class="tag">{{ articleData.topTag }}</router-link>
           <span> / </span>
-          <router-link class="tag">Vue</router-link>
+          <router-link class="tag">{{ articleData.subTag }}</router-link>
         </div>
-        <time>2025-9-29</time>
+        <time>{{ articleData.date }}</time>
       </div>
     </header>
     <div class="article__content">
@@ -48,11 +74,7 @@
   justify-content: center;
   width: 100%;
   aspect-ratio: 3/1;
-
-  background-image: url("@/assets/images/background-04.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
 .article-header::after {
@@ -64,6 +86,22 @@
   height: 100%;
 
   background: linear-gradient(to top, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0.233) 30%, transparent 50%);
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.article-header.loaded::after {
+  opacity: 1;
+}
+
+.article-header__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 .article__title {
