@@ -88,6 +88,35 @@ export async function getChatMeta() {
   return data; // { providers, defaults }
 }
 
+export async function getChatHealth(presetId) {
+  const normalizedId = String(presetId ?? "").trim();
+  if (!normalizedId) throw new Error("缺少预设ID");
+  const query = new URLSearchParams({ presetId: normalizedId });
+  const res = await fetch(`/api/chat/health?${query.toString()}`, {
+    headers: { ...getAuthHeader() },
+  });
+  const data = await readJsonSafe(res);
+  if (!res.ok) throw createApiError(res, data, "获取记忆服务状态失败");
+  return data;
+}
+
+export async function retryChatHealth(component, presetId) {
+  const normalizedComponent = String(component ?? "").trim();
+  const normalizedId = String(presetId ?? "").trim();
+  if (!["memory", "embedding"].includes(normalizedComponent)) {
+    throw new Error("无法识别要重试的记忆服务");
+  }
+  if (!normalizedId) throw new Error("缺少预设ID");
+  const res = await fetch("/api/chat/health/retry", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...getAuthHeader() },
+    body: JSON.stringify({ component: normalizedComponent, presetId: normalizedId }),
+  });
+  const data = await readJsonSafe(res);
+  if (!res.ok) throw createApiError(res, data, "重试记忆服务失败");
+  return data;
+}
+
 export async function createChatPreset({ id, name, systemPrompt } = {}) {
   const res = await fetch("/api/chat/presets", {
     method: "POST",
@@ -120,7 +149,7 @@ export async function rebuildChatPresetMemory(presetId) {
     headers: { ...getAuthHeader() },
   });
   const data = await readJsonSafe(res);
-  if (!res.ok) throw createApiError(res, data, "从头生成记忆失败");
+  if (!res.ok) throw createApiError(res, data, "继续重建记忆失败");
   return data;
 }
 

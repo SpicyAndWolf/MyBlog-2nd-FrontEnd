@@ -9,6 +9,7 @@ import { useChatMessaging } from "./useChatMessaging";
 import { useChatSessions } from "./useChatSessions";
 import { useChatSettings } from "./useChatSettings";
 import { useChatTrash } from "./useChatTrash";
+import { useChatHealth } from "./useChatHealth";
 
 export function useChatPage({ router }) {
   const handleApiError = createApiErrorHandler(router);
@@ -168,6 +169,7 @@ export function useChatPage({ router }) {
     resetEditingState,
   });
   const chatTrash = useChatTrash({ handleApiError });
+  const chatHealth = useChatHealth({ activePresetId, handleApiError });
 
   const dayRollover = ref(null);
 
@@ -223,6 +225,19 @@ export function useChatPage({ router }) {
     () => Boolean(chatMessaging.isSending.value || chatMessaging.isStreaming.value || isEditingActive.value || isEditingMessage.value)
   );
 
+  watch(
+    [
+      chatMessaging.isSending,
+      chatMessaging.isStreaming,
+      isEditingMessage,
+    ],
+    (current, previous) => {
+      const wasBusy = Array.isArray(previous) && previous.some(Boolean);
+      const isBusy = current.some(Boolean);
+      if (wasBusy && !isBusy) chatHealth.scheduleRefresh(1200, { force: true });
+    }
+  );
+
   watch(activePresetId, (presetId) => {
     const normalized = String(presetId || "").trim();
     if (!normalized) return;
@@ -238,6 +253,14 @@ export function useChatPage({ router }) {
   async function deletePromptPreset(presetId) {
     await chatSettings.deletePromptPreset(presetId);
     await chatSessions.loadSessions({ preserveActive: true });
+  }
+
+  async function rebuildPromptPresetMemory(presetId) {
+    const result = await chatSettings.rebuildPromptPresetMemory(presetId);
+    if (String(presetId || "") === String(activePresetId.value || "")) {
+      chatHealth.scheduleRefresh(250, { force: true });
+    }
+    return result;
   }
 
   function openSettings() {
@@ -386,6 +409,12 @@ export function useChatPage({ router }) {
     isStreaming: chatMessaging.isStreaming,
     memoryLockMessage: chatMessaging.memoryLockMessage,
     stopStreaming: chatMessaging.stopStreaming,
+    healthWarnings: chatHealth.warnings,
+    healthRetryableComponents: chatHealth.retryableComponents,
+    isHealthLoading: chatHealth.isLoading,
+    healthRetrying: chatHealth.retrying,
+    refreshHealth: chatHealth.refresh,
+    retryHealth: chatHealth.retry,
 
     providers: chatSettings.providers,
     promptPresets: chatSettings.promptPresets,
@@ -415,7 +444,7 @@ export function useChatPage({ router }) {
     createPromptPreset: chatSettings.createPromptPreset,
     updatePromptPreset,
     deletePromptPreset,
-    rebuildPromptPresetMemory: chatSettings.rebuildPromptPresetMemory,
+    rebuildPromptPresetMemory,
     uploadPromptPresetAvatar: chatSettings.uploadPromptPresetAvatar,
     refreshPromptPresets: chatSettings.refreshPromptPresets,
 

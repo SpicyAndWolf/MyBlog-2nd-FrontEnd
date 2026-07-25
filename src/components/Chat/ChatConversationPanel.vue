@@ -1,6 +1,7 @@
 <script setup>
 import ChatMessageList from "@/components/Chat/ChatMessageList.vue";
 import ChatComposer from "@/components/Chat/ChatComposer.vue";
+import ChatHealthBanner from "@/components/Chat/ChatHealthBanner.vue";
 import { computed, nextTick, onBeforeUnmount, ref, watch } from "vue";
 import { DEFAULT_SESSION_TITLE } from "@/config/chat";
 
@@ -20,6 +21,10 @@ const props = defineProps({
   editingMessageId: { type: String, default: "" },
   editingDraft: { type: String, default: "" },
   editingProcessing: { type: Boolean, default: false },
+  healthWarnings: { type: Array, default: () => [] },
+  healthRetryableComponents: { type: Array, default: () => [] },
+  healthLoading: { type: Boolean, default: false },
+  healthRetrying: { type: Object, default: () => ({}) },
 });
 
 const emit = defineEmits([
@@ -32,6 +37,8 @@ const emit = defineEmits([
   "update-edit-draft",
   "commit-edit-message",
   "cancel-edit-message",
+  "refresh-health",
+  "retry-health",
 ]);
 
 const composerRef = ref(null);
@@ -109,6 +116,15 @@ defineExpose({ focusComposer });
     <div v-else-if="memoryLockMessage" class="memory-lock-banner" role="note" aria-label="记忆重建提示">
       <div class="memory-lock-text">{{ memoryLockMessage }}</div>
     </div>
+
+    <ChatHealthBanner
+      :warnings="healthWarnings"
+      :retryableComponents="healthRetryableComponents"
+      :loading="healthLoading"
+      :retrying="healthRetrying"
+      @refresh="emit('refresh-health')"
+      @retry="emit('retry-health', $event)"
+    />
 
     <ChatMessageList
       class="message-list"

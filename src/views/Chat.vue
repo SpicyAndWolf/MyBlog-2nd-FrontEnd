@@ -25,6 +25,12 @@ const {
   isStreaming,
   memoryLockMessage,
   stopStreaming,
+  healthWarnings,
+  healthRetryableComponents,
+  isHealthLoading,
+  healthRetrying,
+  refreshHealth,
+  retryHealth,
   providers,
   promptPresets,
   chatDefaults,
@@ -142,6 +148,10 @@ useChatComposerSlashFocus({
       :editingMessageId="editingMessageId"
       :editingDraft="editingDraft"
       :editingProcessing="isEditingMessage"
+      :healthWarnings="healthWarnings"
+      :healthRetryableComponents="healthRetryableComponents"
+      :healthLoading="isHealthLoading"
+      :healthRetrying="healthRetrying"
       @open-sidebar="openMobileSidebar"
       @go-today="handleGoToToday"
       @send-message="sendMessage"
@@ -150,6 +160,8 @@ useChatComposerSlashFocus({
       @update-edit-draft="updateEditDraft"
       @commit-edit-message="commitEditMessage"
       @cancel-edit-message="cancelEditMessage"
+      @refresh-health="refreshHealth"
+      @retry-health="retryHealth"
     />
 
     <ChatSettingsModal
